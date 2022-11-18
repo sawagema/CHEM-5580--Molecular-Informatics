@@ -1,0 +1,23 @@
+
+This directory contains (or can contain) Jupyter notebooks which demonstrate capabilities of the toolkit with the Python scripting interface.
+
+The data for this section is platform-independent. Since it also contains a substantial queryable structure database, its size is pretty hefty
+and it is therefore distributed as a separate package.
+
+The notebooks and associated sample data can be freely downloaded from
+
+https://www.xemistry.com/academic/cactvstools-jupyter-notebooks-$(VERSION).tar.gz.
+
+The standard installer script also offers an option to fetch the package as part of the normal installation routine.
+
+The Jupyter server bundled with Cactvs can be started as 'csjp notebook'. It is recommended you have an open Web browser ready
+before running the command, so that the Jupyter start page is automatically displayed.
+
+Instructions on how to connect to the notebook server with explicit commands, or from a remote site,
+are displayed in the csjp command output. The connection command includes a security token, so this is a different
+command for every new server instance.
+
+If you do not want to use the bundled Jupyter server, you can also load Cactvs into any standard Jupyter server. 
+The Python statements to do this properly can be found pre-configured in howto/cactvs.py. The standard toolkit installation
+script will also ask you to whether you want to set up an init file for auto-loading Cactvs into any Jupyter
+server using these statements.

@@ -1,0 +1,17 @@
+	SUBROUTINE SN2_POSTMECH
+...++
+... SN2_POSTMECH does post-mechanism qualifiers for Sn2 displacements.
+... For transforms in which a ring cannot be broken, the postmech qualifiers
+... can be processed as target qualifiers, ie call SN2_postmech early in the
+... transform to avoid unnecessary processing.
+... The routine is called with a single calling argument, the center
+... being attacked in the Sn2 displacement.  SN2_POSTMECH is capable
+... of killing the calling transform, so a success check must be made
+... on return.
+...--
+	IF SPECIFIED*ATOM 1 IS A BRIDGEHEAD THEN RETURN FAIL
+	IF SPECIFIED*ATOM 1 IS IN A RING OF SIZE 3 THEN RETURN FAIL
+	RETURN SUCCESS
+
+
+

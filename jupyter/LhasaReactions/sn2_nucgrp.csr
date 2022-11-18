@@ -1,0 +1,42 @@
+	SUBROUTINE SN2_NUCGRP
+...++
+... SN2_NUCGRP looks at the attacking nucleophile in an Sn2 displacement
+... to determine the basisity vs nucleophilicity of the nucleophile.
+... Nucleophiles are divided into three groups and flags are set to make the
+... information available from other subroutines (i.e. SN2_CENTER)
+...
+... Hard basic nucleophiles make up one group, soft weak bases make up another,
+... and the rest fall into a main category in between.
+...
+... Calling arguments are the attacking atom and the center being attacked.
+...--
+	IF SPECIFIED*ATOM 1 IS A HYDROGEN*ATOM THEN GO TO GRP1
+	IF SPECIFIED*ATOM 1 IS OXYGEN
+	BEGIN O*NUC
+	   IF THERE IS NOT A CARBONYL ALPHA TO SPECIFIED*ATOM 1  &
+	      OFF*SPECIFIED*PATH THEN GO TO GRP1
+	   RETURN SUCCESS         ...carboxylate in main category
+	BLKEND O*NUC
+	IF SPECIFIED*ATOM 1 IS NITROGEN
+	BEGIN N*NUC
+	   IF THERE IS A HYDROGEN ON SPECIFIED*ATOM 1  &
+	      THEN GO TO GRP1                             ...NH2- and NRH-
+	   IF SPECIFIED*ATOM 1 IS MULTIPLY BONDED  &
+	      THEN GO TO GRP1                             ...N3,NC, N=C=O, NO2
+	   RETURN SUCCESS                                 ...NR2,NR3,N-C=O grp2
+	BLKEND N*NUC
+	IF SPECIFIED*ATOM 1 IS CARBON
+	BEGIN C*NUC
+	   IF SPECIFIED*ATOM 1 IS ENOLIZABLE THEN RETURN SUCCESS
+	   GO TO GRP1	       ...acetylide, organometallic, CN
+	BLKEND C*NUC
+	IF SPECIFIED*ATOM 1 IS PHOSPHORUS OR: SULPHUR THEN GO TO GRP3
+	IF SPECIFIED*ATOM 1 IS IODINE THEN GO TO GRP3
+	RETURN SUCCESS		...all others in the main category
+GRP1	TURN ON FLAG HARD*BASIC
+	RETURN SUCCESS
+GRP3	TURN ON FLAG SOFT*WEAK
+	RETURN SUCCESS
+
+
+

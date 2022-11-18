@@ -1,0 +1,4 @@
+Status: 400
+Code: PUGREST.BadRequest
+Message: Missing SID list
+Detail: Expected a comma-separated list of SIDs via URL or POST

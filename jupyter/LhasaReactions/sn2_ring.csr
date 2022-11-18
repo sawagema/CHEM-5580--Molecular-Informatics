@@ -1,0 +1,22 @@
+	SUBROUTINE SN2_RING
+...++
+... SN2_RING checks for acceptable ring sizes for intramolecular Sn2
+... displacements.  The subroutine is called with the bond broken by
+... the transform as the sole calling argument.  SN2_RING cannot kill
+... the calling transform, so no success check need be made.
+...--
+... The subroutine is called by SN2_3RING.
+...
+	IF SPECIFIED*BOND 1 IS NOT IN A RING OF SIZE 4 OR LARGER  &
+	   THEN RETURN SUCCESS
+	SUBTRACT 10 IF SPECIFIED*BOND 1 IS IN A RING OF SIZE 4  &
+	   THEN RETURN SUCCESS
+	ADD 15 IF SPECIFIED*BOND 1 IS IN A RING OF SIZE 5 THROUGH 6  &
+	   THEN RETURN SUCCESS
+	SUBTRACT 10 IF SPECIFIED*BOND 1 IS IN A RING OF SIZE 7  &
+	   THEN RETURN SUCCESS
+	SUBTRACT 25 IF SPECIFIED*BOND 1 IS IN A RING OF SIZE 8 OR LARGER
+	RETURN SUCCESS
+
+
+

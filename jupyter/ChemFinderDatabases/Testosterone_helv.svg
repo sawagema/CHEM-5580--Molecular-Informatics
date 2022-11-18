@@ -1,0 +1,58 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" zoomAndPan="magnify" preserveAspectRatio="xMidYMid" contentScriptType="application/ecmascript" id="acfba4c2-81c7-11eb-9315-00d861d0b82f">
+<g>
+	<title>Untitled Document</title>
+	<desc content="structured text">Untitled Document</desc>
+	<!-- Untitled Document -->
+	<rect x="0" y="0" width="180" height="180" stroke="none" fill="none"/>
+	<text x="21.1389" y="135.943" fill="#000000" font-family="Helvetica" font-size="8.8pt" text-anchor="middle" font-weight="bold">O</text>
+	<text x="88.6889" y="116.443" fill="#000000" font-family="Helvetica" font-size="8.8pt" text-anchor="middle" font-weight="bold">H</text>
+	<text x="105.576" y="87.1925" fill="#000000" font-family="Helvetica" font-size="8.8pt" text-anchor="middle" font-weight="bold">H</text>
+	<text x="122.464" y="116.443" fill="#000000" font-family="Helvetica" font-size="8.8pt" text-anchor="middle" font-weight="bold">H</text>
+	<text x="150.906" y="52.8711" fill="#000000" font-family="Helvetica" font-size="8.8pt" text-anchor="middle" font-weight="bold">OH</text>
+	<line x1="38.0264" y1="103.543" x2="38.0264" y2="123.043" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="38.0264" y1="123.043" x2="54.9139" y2="132.793" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="37.1264" y1="121.484" x2="26.6543" y2="127.53" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="38.9264" y1="124.601" x2="26.6543" y2="131.687" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="54.9139" y1="132.793" x2="71.8014" y2="123.043" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="55.647" y1="128.212" x2="67.4683" y2="121.387" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="71.8014" y1="123.043" x2="71.8014" y2="103.543" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="71.8014" y1="103.543" x2="54.9139" y2="93.7925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="38.0264" y1="103.543" x2="54.9139" y2="93.7925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="71.8014" y1="123.043" x2="88.6889" y2="132.793" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="88.6889" y1="132.793" x2="105.576" y2="123.043" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="105.576" y1="123.043" x2="105.576" y2="103.543" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="105.576" y1="103.543" x2="88.6889" y2="93.7925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="71.8014" y1="103.543" x2="88.6889" y2="93.7925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="105.576" y1="103.543" x2="122.464" y2="93.7925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="122.464" y1="93.7925" x2="122.464" y2="74.2925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="122.464" y1="74.2925" x2="105.576" y2="64.5425" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="105.576" y1="64.5425" x2="88.6889" y2="74.2925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="88.6889" y1="93.7925" x2="88.6889" y2="74.2925" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="122.464" y1="93.7925" x2="141.009" y2="99.8184" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="141.009" y1="99.8184" x2="152.471" y2="84.0425" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="152.471" y1="84.0425" x2="141.009" y2="68.2667" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<line x1="122.464" y1="74.2925" x2="141.009" y2="68.2667" stroke="#000000" stroke-width="1.2" stroke-linecap="round" />
+	<polygon fill="#000000" stroke="none" points=" 71.8014,103.543 69.3014,84.0425 74.3014,84.0425 " />
+	<polygon fill="#000000" stroke="none" points=" 88.6889,93.7925 88.9667,95.1259 88.4111,95.1259 " />
+	<polygon fill="#000000" stroke="none" points=" 89.2444,96.4592 89.5222,97.7925 87.8555,97.7925 88.1333,96.4592 " />
+	<polygon fill="#000000" stroke="none" points=" 89.8,99.1259 90.0778,100.459 87.3,100.459 87.5778,99.1259 " />
+	<polygon fill="#000000" stroke="none" points=" 90.3555,101.793 90.6333,103.126 86.7444,103.126 87.0222,101.793 " />
+	<polygon fill="#000000" stroke="none" points=" 90.9111,104.459 91.1889,105.793 86.1889,105.793 86.4667,104.459 " />
+	<polygon fill="#000000" stroke="none" points=" 105.576,103.543 103.076,89.0425 108.076,89.0425 " />
+	<polygon fill="#000000" stroke="none" points=" 122.464,93.7925 122.742,95.1259 122.186,95.1259 " />
+	<polygon fill="#000000" stroke="none" points=" 123.019,96.4592 123.297,97.7925 121.631,97.7925 121.908,96.4592 " />
+	<polygon fill="#000000" stroke="none" points=" 123.575,99.1259 123.853,100.459 121.075,100.459 121.353,99.1259 " />
+	<polygon fill="#000000" stroke="none" points=" 124.131,101.793 124.408,103.126 120.519,103.126 120.797,101.793 " />
+	<polygon fill="#000000" stroke="none" points=" 124.686,104.459 124.964,105.793 119.964,105.793 120.242,104.459 " />
+	<polygon fill="#000000" stroke="none" points=" 122.464,74.2925 119.964,54.7925 124.964,54.7925 " />
+	<polygon fill="#000000" stroke="none" points=" 141.009,68.2667 143.033,53.9486 147.788,55.4937 " />
+	<text x="66.5765" y="110.543" fill="#000000" font-family="Helvetica" font-size="7pt" text-anchor="middle" font-weight="bold">R</text>
+	<text x="100.351" y="110.543" fill="#000000" font-family="Helvetica" font-size="7pt" text-anchor="middle" font-weight="bold">R</text>
+	<text x="93.9144" y="93.7925" fill="#000000" font-family="Helvetica" font-size="7pt" text-anchor="middle" font-weight="bold">S</text>
+	<text x="127.689" y="89.7925" fill="#000000" font-family="Helvetica" font-size="7pt" text-anchor="middle" font-weight="bold">S</text>
+	<text x="117.238" y="81.2925" fill="#000000" font-family="Helvetica" font-size="7pt" text-anchor="middle" font-weight="bold">S</text>
+	<text x="146.235" y="68.2667" fill="#000000" font-family="Helvetica" font-size="7pt" text-anchor="middle" font-weight="bold">S</text>
+</g>
+</svg>

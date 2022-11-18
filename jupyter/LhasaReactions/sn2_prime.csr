@@ -1,0 +1,70 @@
+	SUBROUTINE SN2_PRIME
+...++
+... SN2_PRIME checks for the possibility of intermolecular SN2' attack
+... in the case of an allylic or doubly-allylic SN2 center.  The
+... subroutine should be called in the mechanism section of a transform.
+... The subroutine can modify the rating, but cannot kill the calling
+... transform, so no success test need be done on return.
+...
+... Calling arguments are the (allylic) center being attacked and the
+... attacking atom (absent in the case of hydride attack), in that order.
+... Uses SAVED*ATOM 1 and 2 and SAVED*BOND 1 internally.
+...--
+... Note that if the allylic substate is symmetrical,
+... e.g., allylbromide, nothing is subtracted for SN2' attack.
+...
+	IF SPECIFIED*ATOM 1 IS NOT ALLYLIC THEN RETURN SUCCESS
+	CLEAR SAVED*BOND 1
+	IF THERE IS A BOND SPANNING SPECIFIED*ATOM 1 AND SPECIFIED*ATOM 2  &
+	   THEN SAVE AS 1 THE PREVIOUS BOND LOCANT
+	IF SAVED*BOND 1 IS IN A RING THEN RETURN SUCCESS
+	IF THERE ARE TWO HYDROGENS ON SPECIFIED*ATOM 1
+	BEGIN PRIM*ALL
+	   IF THERE IS NO OLEFIN ON ALPHA TO SPECIFIED*ATOM 1  &
+	      OFF*SPECIFIED*PATH THEN RETURN SUCCESS
+...
+... "IT" won't work because it contains both olefin _atoms_!
+...
+	   SAVE AS 1 ALPHA TO SPECIFIED*ATOM 1 OFF*SPECIFIED*PATH
+	   SAVE AS 2 ALPHA TO SAVED*ATOM 1 IN*THE*GROUP
+	   SUBTRACT 5 IF SAVED*ATOM 2 IS A NON PRIMARY*CENTER AND:  &
+	      HYDROGEN BEARING
+	   RETURN SUCCESS
+	BLKEND PRIM*ALL
+...
+... Actually, if there is more than one SN2' attack possible, the
+... various possible attacks (SN2 and SN2') can hardly be equivalent.
+...
+	IF THERE IS MORE THAN ONE OLEFIN ON ALPHA TO SPECIFIED*ATOM 1  &
+	   OFF*SPECIFIED*PATH THEN DECREMENT 25 AND*THEN RETURN SUCCESS
+	IF THERE IS NO OLEFIN ON ALPHA TO SPECIFIED*ATOM 1  &
+	   OFF*SPECIFIED*PATH THEN RETURN SUCCESS
+	SAVE IT AS 1    ... Contains BOTH olefin atoms!
+	IF SAVED*ATOM 1 IS NOT CONTAINED IN BETA TO SPECIFIED*ATOM 1  &
+	   THEN RETURN SUCCESS
+	SAVE IT AS 2
+	IF SAVED*ATOM 1 IS NOT CONTAINED IN ALPHA TO SPECIFIED*ATOM 1  &
+	   THEN RETURN SUCCESS
+	SAVE IT AS 1
+	SUBTRACT 50 IF SAVED*ATOM 2 IS A PRIMARY*CENTER AND*THEN RETURN SUCCESS
+	IF THERE IS NO HYDROGEN ON SAVED*ATOM 2 THEN RETURN SUCCESS
+...
+... Decrement the rating unless the allylic system is symmetrical.
+... To perceive such symmetry, we would like to generate a temporary
+... allylic "triradical" (C'-C'-C').  However, disconnecting the
+... molecule will cause the PERFORM to kill the transform.  Why,
+... I don't know.  So we reconnect SPECIFIED*ATOM 2 to the central
+... atom of the allylic system (in order to not disrupt any symmetry).
+...
+	SINGLE THE BOND SPANNING SAVED*ATOM 1 AND SAVED*ATOM 2
+	IF THERE IS A SAVED*BOND 1 THEN BREAK SAVED*BOND 1
+	IF THERE IS A SAVED*BOND 1 THEN JOIN SAVED*ATOM 1 AND SPECIFIED*ATOM 2
+	RADICALIZE SPECIFIED*ATOM 1
+	RADICALIZE SAVED*ATOM 2
+	PERFORM THE MECHANISM
+	SUBTRACT 25 IF SAVED*ATOM 2 IS NOT EQUIVALENT TO SPECIFIED*ATOM 1
+	REGENERATE THE TARGET
+	RETURN SUCCESS
+
+
+

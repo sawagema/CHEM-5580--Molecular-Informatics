@@ -1,0 +1,125 @@
+	SUBROUTINE SN2_CENTER
+...++
+... SN2_CENTER looks at the center being attacked in an Sn2 displacement
+... to adjust the rating according to the structural features around the
+... center. Steric hindrance at adjacent locants is also taken into account.
+... A failure return indicates thet the calling transform should be killed.
+...
+... The subroutine differs between different categories of nucleophiles in
+... its evaluation of ratings. The category of the nucleophile is determined
+... through a call to SN2_NUCGRP or preset from the transform by turning on
+... the flags HARD*BASIC, SOFT*WEAK or MAIN*CAT.
+...
+... Calling arguments are the (Sn2) center being attacked and the attacking
+... atom (nucleophile), in that order.
+... Uses SAVED*ATOM 1 and 2 internally.
+...--
+... The qualifiers below reflect the tendency of the substrate to undergo
+... E2-elimination and, thus, a difference is made between nucleophiles.
+...
+	IF SPECIFIED*ATOM 1 IS MULTIPLY BONDED THEN RETURN FAIL
+	IF SPECIFIED*ATOM 1 HAS AN EPOXIDE OR: EPISULFIDE OR: AZIRIDINE  &
+	   THEN RETURN FAIL                ... Other than the keying group(s)
+	TURN OFF FLAG INTRAMOL
+	IF THE BOND SPANNING SPECIFIED*ATOM 1 AND SPECIFIED*ATOM 2  &
+	IS IN A RING THEN TURN ON FLAG INTRAMOL
+	IF THERE ARE THREE CARBONS ALPHA TO SPECIFIED*ATOM 1  &
+	   OFF*SPECIFIED*PATH AND:IF FLAG INTRAMOL IS OFF THEN RETURN FAIL
+	     ...Counting offpath carbons makes the qualifier more general,
+	     ...eg for C#N, C#C nucleophiles
+	IF FLAG MAIN*CAT IS ON THEN GO TO MAIN
+	IF FLAG HARD*BASIC IS ON OR:IF FLAG SOFT*WEAK IS ON THEN GO TO DONE
+	CALL SN2_NUCGRP AT SPECIFIED*ATOM 2 AND SPECIFIED*ATOM 1
+DONE	IF FLAG HARD*BASIC IS ON
+	BEGIN HARD*NUC
+	   IF THERE ARE NO HYDROGENS ON SPECIFIED*ATOM 1 THEN SUBTRACT 35
+	   IF THERE IS ONE HYDROGEN ON SPECIFIED*ATOM 1 THEN SUBTRACT 25
+	   ... With enolizable alpha-carbons, the activating group needs
+	   ... to be protected
+	   IF ALPHA TO SPECIFIED*ATOM 1 OFF*SPECIFIED*PATH IS ENOLIZABLE
+	   BEGIN CHK_EWG*1
+	      SAVE IT AS 1
+	      IF THERE IS A NONEXPANDABLE*WITHDRAWING GROUP ON SAVED*ATOM 1  &
+	         THEN DESIGNATE THE GROUP AS INTERFERING
+	      IF THERE IS AN EXPANDABLE*WITHDRAWING GROUP ON  &
+	         ALPHA TO SAVED*ATOM 1 THEN DESIGNATE THE GROUP AS INTERFERING
+	   BLKEND CHK_EWG*1
+	   IF SPECIFIED*ATOM 1 IS IN A RING OF SIZE SIX
+	   BEGIN C*HEX*GRP1  ...cyclohexyl substitution gives mainly elimination
+	      DESIGNATE THE RING OF SIZE SIX CONTAINING SPECIFIED*ATOM 1  &
+	         AS THE CURRENT*RING
+	      IF SPECIFIED*ATOM 2 IS ON*THE*RING THEN EXIT C*HEX*GRP1
+	...Make sure that the ring is not broken by the transform
+	      CLEAR SAVED*ATOM 1
+	      CLEAR SAVED*ATOM 2
+	      SAVE*SEQUENTIALLY STARTING FROM 1  &
+	         ALPHA TO SPECIFIED*ATOM 1 ON*THE*RING
+	      IF THERE IS A HYDROGEN ON SAVED*ATOM 1 AND:IF  &
+	         SAVED*ATOM 1 IS NOT MULTIPLY BONDED THEN RETURN FAIL
+	      IF THERE IS A SAVED*ATOM 2 THEN  &
+	      IF THERE IS A HYDROGEN ON SAVED*ATOM 2 AND:IF  &
+	         SAVED*ATOM 2 IS NOT MULTIPLY BONDED THEN RETURN FAIL
+	   BLKEND C*HEX*GRP1
+	   GO TO ALL_NUC
+	BLKEND HARD*NUC
+MAIN	IF FLAG SOFT*WEAK IS OFF               ...intermediate nucleophiles
+	BEGIN MAIN*NUC
+	   IF THERE ARE NO HYDROGENS ON SPECIFIED*ATOM 1 THEN SUBTRACT 25
+	   IF THERE IS ONE HYDROGEN ON SPECIFIED*ATOM 1 THEN SUBTRACT 10
+	   ... With enolizable alpha-carbons, the activating group needs
+	   ... to be protected
+	   IF ALPHA TO SPECIFIED*ATOM 1 OFF*SPECIFIED*PATH IS ENOLIZABLE
+	   BEGIN CHK_EWG*2
+	      SAVE IT AS 1
+	      SUBTRACT 25
+	      IF THERE IS A NONEXPANDABLE*WITHDRAWING GROUP ON SAVED*ATOM 1  &
+	         THEN DESIGNATE THE GROUP AS INTERFERING
+	      IF THERE IS AN EXPANDABLE*WITHDRAWING GROUP ON  &
+	         ALPHA TO SAVED*ATOM 1 THEN DESIGNATE THE GROUP AS INTERFERING
+	   BLKEND CHK_EWG*2
+	   IF SPECIFIED*ATOM 1 IS IN A RING OF SIZE SIX
+	   BEGIN C*HEX*GRP2
+	      DESIGNATE THE RING OF SIZE SIX CONTAINING SPECIFIED*ATOM 1  &
+	         AS THE CURRENT*RING
+	      IF SPECIFIED*ATOM 2 IS ON*THE*RING THEN EXIT C*HEX*GRP2
+	...Make sure that the ring is not broken by the transform
+	      CLEAR SAVED*ATOM 1
+	      CLEAR SAVED*ATOM 2
+	      SAVE*SEQUENTIALLY STARTING FROM 1  &
+	         ALPHA TO SPECIFIED*ATOM 1 ON*THE*RING
+	      IF THERE IS A HYDROGEN ON SAVED*ATOM 1 AND:IF  &
+	         SAVED*ATOM 1 IS NOT MULTIPLY BONDED THEN SUBTRACT 30  &
+	            AND*THEN EXIT C*HEX*GRP2
+	      IF THERE IS A SAVED*ATOM 2 THEN  &
+	         IF THERE IS A HYDROGEN ON SAVED*ATOM 2 AND:IF  &
+	         SAVED*ATOM 2 IS NOT MULTIPLY BONDED THEN SUBTRACT 30
+	   BLKEND C*HEX*GRP2
+	   GO TO ALL_NUC
+	BLKEND MAIN*NUC
+	SUBTRACT 20 IF THERE ARE NO HYDROGENS ON SPECIFIED*ATOM 1
+	... no adjustments for soft nucleophiles on secondary centers,
+	... a-enolizable carbons, or cyclohexanes
+ALL_NUC IF THERE ARE TWO HYDROGENS ON SPECIFIED*ATOM 1 THEN ADD 5
+	IF THERE ARE THREE HYDROGENS ON SPECIFIED*ATOM 1 THEN ADD 15
+	IF THERE IS A DONATING BOND ON SPECIFIED*ATOM 1 OFF*SPECIFIED*PATH  &
+	   THEN SUBTRACT 40
+	IF THERE IS A HALIDE ON SPECIFIED*ATOM 1 OFF*SPECIFIED*PATH  &
+	   THEN SUBTRACT 40
+	ADD 10 IF SPECIFIED*ATOM 1 IS ALLYLIC OR: BENZYLIC
+	... Ratings for allylic centers are further adjusted in sn2_prime
+	ADD 10 IF ALPHA TO SPECIFIED*ATOM 1 OFF*SPECIFIED*PATH IS ACETYLENE
+...
+... Steric hindrance on adjacent carbons:
+...
+	IF FLAG INTRAMOL IS OFF
+	BEGIN STERIC
+	   FOR EACH CARBON ALPHA TO SPECIFIED*ATOM 1 OFF*SPECIFIED*PATH DO SUBST
+	      SUBTRACT 20 IF SPECIFIED*ATOM 1 IS A QUATERNARY*CENTER
+	      SUBTRACT 10 IF SPECIFIED*ATOM 1 IS A TERTIARY*CENTER  &
+	         AND: NON MULTIPLY BONDED
+SUBST	   ENDDO
+	BLKEND STERIC
+	RETURN SUCCESS
+
+
+
